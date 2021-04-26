@@ -1,42 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <link rel="stylesheet" href="./css/reset.css">
     <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="./css/animate.min.css">
     <script src="./js/jquery.js"></script>
+    <script src="./js/swiper.animate.min.js"></script>
+    <script src="./js/swiper-bundle.min.js"></script>
+    <title>Document</title>
 </head>
-<body>
-    <div class="base-flex">
-        <div class="menu active">按钮 </div>
-        <div class="menu">按钮</div>
-        <div class="menu">按钮</div>
-        <div class="menu">按钮</div>
-        <div class="menu">按钮</div>
-        <div class="menu">按钮</div>
-        <div class="menu">按钮</div>
-        <div class="menu">按钮</div>
-    </div>
-    <div class="prod-tabs">
-        <div class="tab">1</div>
-        <div class="tab">2</div>
-        <div class="tab">3</div>
-        <div class="tab">4</div>
-    </div>
-    <!-- prod: productions产品 -->
-</body>
-</html>
-<script>
-const mens = $('.menu')
-mens.mousemove(function(e){
-    // console.log($(this).siblings);
-    $(this).addClass('active').siblings().removeClass('active')
-    console.log(e);
-})
 
-const pros = $('.pros')
-console.log(mens, pros);
+<body>
+    <div class="swiper-container" style="width: 500.02px; height: 300px;">
+        <div style="position: absolute; right: 0; width: 100px; height: 100px; background-color: antiquewhite;">temp</div>
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">2</div>
+
+            <div class="swiper-slide">
+                <div class="title" data-swiper-parallax="-100">从右边100px开始进入</div>
+                <div class="subtitle" data-swiper-parallax="-200">从右边200px开始进入</div>
+                <div class="text" data-swiper-parallax="-300" data-swiper-parallax-duration="600">
+                  <p>从右边300px开始进入，时间600ms</p>
+                </div>
+                <div data-swiper-parallax="0" data-swiper-parallax-opacity="0.5" >透明度变化</div>
+                <div data-swiper-parallax-scale="0.15" >缩放变化</div>
+            </div>
+            <div class="swiper-slide">3</div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+
+        <!-- 如果需要滚动条 -->
+        <div class="swiper-scrollbar"></div>
+    </div>
+    <!-- 导航等组件可以放在container之外 -->
+
+
+</body>
+<script>
+    var mySwiper = new Swiper('.swiper-container', {
+        initialSlide: 0,
+        direction: 'horizontal',
+        speed: 300,
+        grabCursor: true,
+        parallax: true,
+        setWrapperSize: true,
+        // virtualTranslate : true,
+        // width: 500,
+        height: 300,
+        roundLengths: true,
+        autoHeight: true,
+        uniqueNavElements: true,
+
+        // 如果需要分页器
+        pagination: {
+            el: '.swiper-pagination',
+        },
+
+        // 如果需要前进后退按钮
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+        // 如果需要滚动条
+        scrollbar: {
+            el: '.swiper-scrollbar',
+        },
+        on: {
+            init: function () {
+                swiperAnimateCache(this); //隐藏动画元素 
+                swiperAnimate(this); //初始化完成开始动画
+            },
+            slideChangeTransitionEnd: function () {
+                swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+                //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+            }
+        }
+    })
 </script>
+
+</html>
